@@ -15,21 +15,20 @@
 @param new_arr: динамический массив, в который записываются члены arr_a, которые не входят в arr_b
 @param size: размер массива b
 @return номер числа в массиве*/
-void create_arr(int arr_a[25], int *arr_b, int*new_arr, unsigned size){
+int create_arr(int arr_a[25], int *arr_b, int*new_arr, unsigned size){
   int num = 0;
-  boolean flag = 0;
   for (unsigned i = 0; i < size; ++i){
+    boolean flag = 0;
     for (unsigned j = 0; j < 25; ++j){
         if (arr_b[i] == arr_a[j]){
             flag = 1;
+            break;
         }
-    if (flag == 0){
-       new_arr[num] = arr_b[i];
-       ++num; 
     }
-    flag = 0;
-    }
+    if (flag == 0)
+       new_arr[num++] = arr_b[i];   
   }
+  return num;
 }
 
 /* @brief функция для вывода массива 
@@ -40,46 +39,43 @@ void arr_output(int *arr, unsigned size){
         printf( "%d  ",arr[i]);
      }
 }
-/* @brief функция для заполнения массива случайными целыми числами от -100 до 100
-@param arr: динамический массив целых чисел
-@param size: размер массива*/
-void arr_rand(int *arr, unsigned size){
-  for (unsigned i = 0; i < size; ++i) {
-    arr[i] = rand() % 200 - 100;
-  }
-}
+
 int main() {
 srand(time(NULL));
 
 const unsigned size_a = 25;
-int arr_a[size_a];
+int arr_a[size_a]; //массив, содержащий последовательность a1,..., a25
 int *arr_b; // указатель на массив
-int *arr_res;
+int *arr_res; //итоговый массив
+unsigned size_res; //количество элементов в итоговом массиве
 unsigned size_b; //количество элементов в массиве
-int a; //число, которое ищем в массиве
+
 printf("Даны натуральное число n, целые числа a1,..., a25, b1,..., bn.\nСреди a1,..., a25 нет повторяющихся чисел, нет их и среди b1,..., bn.\nПолучить все члены последовательности b1,..., bn, которые не входят в последовательность a1,..., a25.\n");
-printf("Введите размер массива: \n");
+
+printf("Введите 25 элементов массива a\n");
+
+for (unsigned i = 0; i < 25; ++i){
+    scanf("%i", &arr_a[i]);
+}
+
+printf("Введите размер массива b: \n");
+
 scanf("%u", &size_b);
+
 // выделение памяти под динамический массив: n * sizeof (int) байт
 arr_b = malloc(size_b * sizeof(int));
 arr_res = malloc(size_b * sizeof(int));
-printf("Массив, состоящий из n элементов:\n");
-arr_rand(arr, n);
-arr_output(arr, n);
-printf("\n");
-printf("Введите a (число, номер которого хотите найти)\n");
-scanf("%d", &a);
-// номер числа в массиве
-int num = arr_find(arr, n, a);
-if (num > 0) {
-printf("Член в последовательности x1, ..., xn, равный a, идет под номером: %d", arr_find(arr, n, a));
-}
-else {printf("Такого члена нет в последовательности");
+printf("Введите %u элементов массива b:\n", size_b);
+for (unsigned i = 0; i < size_b; ++i){
+    scanf("%i", &arr_b[i]);
 }
 
+size_res = create_arr(arr_a, arr_b, arr_res, size_b);
+arr_output(arr_res, size_res);
 
 //очищаем память
-free(arr);
+free(arr_b);
+free(arr_res);
 return 0;
 
 }

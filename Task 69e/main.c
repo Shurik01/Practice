@@ -1,6 +1,7 @@
 #include <locale.h>
 #include <windows.h>
 #include <stdio.h>
+
 // Автор: Пархоменко А.В.
 
 int main() {

@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-// Максимальные размеры матриц
+// Максимальный размер матрицы
 const unsigned max_size = 100;
 
 /**
@@ -24,10 +24,10 @@ void mat_multiplication(float mat_A[max_size][max_size],
                         float mat_B[max_size][max_size], 
                         float mat_AB[max_size][max_size], 
                         unsigned k, unsigned m, unsigned l) {
-    for (unsigned i = 0; i < k; ++i) {
-        for (unsigned j = 0; j < l; ++j) {
+    for ( unsigned i = 0; i < k; ++i ) {
+        for ( unsigned j = 0; j < l; ++j ) {
             mat_AB[i][j] = 0;
-            for (unsigned n = 0; n < m; ++n) {
+            for ( unsigned n = 0; n < m; ++n ) {
                 mat_AB[i][j] += mat_A[i][n] * mat_B[n][j];
             }
         }
@@ -41,8 +41,8 @@ void mat_multiplication(float mat_A[max_size][max_size],
  * @param cols Количество столбцов в матрице
  */
 void mat_output(float mat[max_size][max_size], unsigned rows, unsigned cols) {
-    for (unsigned i = 0; i < rows; ++i) {
-        for (unsigned j = 0; j < cols; ++j) {
+    for ( unsigned i = 0; i < rows; ++i ) {
+        for ( unsigned j = 0; j < cols; ++j ) {
             printf("%6.2f ", mat[i][j]);
         }
         printf("\n");
@@ -59,6 +59,9 @@ void mat_output(float mat[max_size][max_size], unsigned rows, unsigned cols) {
 void mat_random(float mat[max_size][max_size], unsigned rows, unsigned cols) {
     for (unsigned i = 0; i < rows; ++i) {
         for (unsigned j = 0; j < cols; ++j) {
+             /*RAND_MAX - это константа, определенная в стандартной библиотеке C 
+            rand() возвращает число от 0 до RAND_MAX; 1.0 * rand() / RAND_MAX дает число от 0.0 до 1.0
+            *200 расширяет диапазон до [0, 200]; - 100 сдвигает диапазон до [-100, 100]*/
             mat[i][j] = (float)rand() / RAND_MAX * 200.0f - 100.0f;
         }
     }

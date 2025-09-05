@@ -26,28 +26,24 @@ void mat_dif_max_min(float mat[N][M], unsigned size_line, unsigned size_col) {
     float mat_max;
     float mat_res;
     
-    for (unsigned i = 0; i < size_line; ++i) {
+    for ( unsigned i = 0; i < size_line; ++i ) {
         // Инициализация минимума и максимума для текущей строки
         mat_min = mat[i][0];
         mat_max = mat[i][0];
         
-        for (unsigned j = 0; j < size_col; ++j) {
+        for ( unsigned j = 0; j < size_col; ++j ) {
             // Поиск минимального элемента в строке
-            if (mat[i][j] < mat_min)
+            if ( mat[i][j] < mat_min )
                 mat_min = mat[i][j];
             
             // Поиск максимального элемента в строке
-            if (mat[i][j] > mat_max)
+            if ( mat[i][j] > mat_max )
                 mat_max = mat[i][j];
         }
 
         // Вычисление и вывод разности для текущей строки
-        if (mat_min < 0) 
-        mat_res = mat_max + mat_min;
-
-        else
         mat_res = mat_max - mat_min;
-        printf("b%u = %3.2f\n", i + 1, mat_res);
+        printf( "b%u = %3.2f\n", i + 1, mat_res );
     }
 }
 
@@ -58,8 +54,8 @@ void mat_dif_max_min(float mat[N][M], unsigned size_line, unsigned size_col) {
  * @param size_col Количество столбцов в матрице
  */
 void mat_output(float mat[N][M], unsigned size_line, unsigned size_col) {
-    for (unsigned i = 0; i < size_line; ++i) {      // цикл по строкам
-        for (unsigned j = 0; j < size_col; ++j) {   // цикл по столбцам
+    for ( unsigned i = 0; i < size_line; ++i ) {      // цикл по строкам
+        for ( unsigned j = 0; j < size_col; ++j ) {   // цикл по столбцам
             printf("%6.2f  ", mat[i][j]);
         }
         printf("\n");  // переход на новую строку после вывода каждой строки матрицы
@@ -73,8 +69,12 @@ void mat_output(float mat[N][M], unsigned size_line, unsigned size_col) {
  * @param size_col Количество столбцов в матрице
  */
 void mat_random(float mat[N][M], unsigned size_line, unsigned size_col) {
-    for (unsigned i = 0; i < size_line; ++i) {      // цикл по строкам
-        for (unsigned j = 0; j < size_col; ++j) {   // цикл по столбцам
+    for ( unsigned i = 0; i < size_line; ++i ) {      // цикл по строкам
+        for ( unsigned j = 0; j < size_col; ++j ) {   // цикл по столбцам
+
+            /*RAND_MAX - это константа, определенная в стандартной библиотеке C 
+            rand() возвращает число от 0 до RAND_MAX; 1.0 * rand() / RAND_MAX дает число от 0.0 до 1.0
+            *200 расширяет диапазон до [0, 200]; - 100 сдвигает диапазон до [-100, 100]*/
             mat[i][j] = 1.0 * rand() / RAND_MAX * 200 - 100;
         }
     }
@@ -87,7 +87,7 @@ void mat_random(float mat[N][M], unsigned size_line, unsigned size_col) {
  * максимальными и минимальными элементами каждой строки
  */
 int main() {
-    srand(time(NULL));  // инициализация генератора случайных чисел текущим временем
+    srand( time(NULL) );  // инициализация генератора случайных чисел текущим временем
     
     float mat[N][M];    // матрица
 
